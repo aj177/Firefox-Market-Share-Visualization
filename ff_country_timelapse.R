@@ -28,15 +28,12 @@ ff_country_timelapse = function() {
    library(ggplot2);
    library(animation);
    world = fortify(world, region="NAME");
-   #ggplot() + geom_map(data=ff_by_country, aes(map_id=Country, fill=X2), map=world) + expand_limits(x=world$long, y=world$lat) + scale_fill_gradient2(name="Market Share", space="Lab", na.value=NA, limits=c(0,100)) + ggtitle("Firefox Market Share by Country");
   
     saveGIF({
       for (i in 1:61){
         row = paste("X",i,sep="")
         title = paste("Market Share of Firefox by country ",i,sep="")
         map = ggplot() + geom_map(data=ff_by_country, aes_string(map_id='Country', fill=row), map=world) + expand_limits(x=world$long, y=world$lat) + scale_fill_gradient2(name="Market Share", space="Lab", na.value=NA, limits=c(0,100)) + ggtitle(title)+ theme(plot.title = element_text(lineheight=.8, face="bold",size=20));
-        print(map);
-        #ggsave(plot = map, filename=paste("plot",i,".png",sep=""));
       }  
     }, interval=0.5, movie.name="ggplot2-ff-market-share.gif",ani.width=800, ani.height=800)
 
